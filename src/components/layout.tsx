@@ -54,7 +54,7 @@ export function LayoutHeader() {
         <ul>
           <li>
             <Link href="/produits">
-              Produits
+              Nos produits
             </Link>
           </li>
         </ul>
