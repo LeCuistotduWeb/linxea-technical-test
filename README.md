@@ -41,16 +41,13 @@ pnpm start
   
 ### Rendering (SSR / SSG)
 
-- Selected strategy: [SSR | SSG | hybrid]
-- Rationale:
-	- [Ex: SSR for dynamic data]
-	- [Ex: SSG for stable, high-performance pages]
+- Stratégie retenue : Hybride (SSG + revalidate + récupération côté client)
+- Justification :
+	- Les pages de détail produit sont pré-générées avec `generateStaticParams` pour un premier affichage rapide et un SEO prévisible.
+	- La revalidation est activée pour garder des données à jour sans rebuild complet.
+	- Les interactions de la page listing (filtres, tri) sont gérées côté client avec React Query pour une UX fluide.
 
 ## Time spent
-
-- Total time: [Xh]
-- Breakdown (optional):
-	- Setup / configuration: [Xh]
-	- Feature development: [Xh]
-	- UI / UX: [Xh]
-	- Tests / QA: [Xh]
+- Total time: 1h50 :
+	- Setup / configuration: 0h15
+	- Feature development: 1h35
