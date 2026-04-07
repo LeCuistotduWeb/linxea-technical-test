@@ -32,7 +32,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   const { id } = await params;
   const product = await ProductApi.findProductById({ id });
   if (!product) { return notFound(); }
-
   return (
     <LayoutMain>
       <Link href="/produits" className="text-sm hover:underline mb-4 inline-block">

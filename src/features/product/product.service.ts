@@ -2,6 +2,7 @@ import "server-only";
 import data from "@/datas/products.json";
 import { mapApiProductToProduct } from "./product.mapper";
 import { ApiProduct, findProductByIdParams, Product } from "./product.type";
+import { ProductIdSchema } from "./product.schema";
 
 async function findProducts(): Promise<Product[]> {
   const products: ApiProduct[] = data;
@@ -10,6 +11,12 @@ async function findProducts(): Promise<Product[]> {
 };
 
 async function findProductById({ id }: findProductByIdParams): Promise<Product | null> {
+  const parsedId = ProductIdSchema.safeParse(id);
+
+  if (!parsedId.success) {
+    return null;
+  }
+
   const products: ApiProduct[] = data;
   const product = products.find((product) => product.id === id);
   if (!product) {

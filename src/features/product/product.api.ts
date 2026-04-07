@@ -10,19 +10,23 @@ async function findProducts(): Promise<Product[]> {
     }).then((res) =>
       res.json()
     ) || [];
-  } catch (error) {
+  } catch () {
     return [];
   }
 };
 
 async function findProductById({ id }: findProductByIdParams): Promise<Product | null> {
   try {
-    return await fetch(`${siteConfig.apiUrl}/api/products/${id}`, {
+    const response = await fetch(`${siteConfig.apiUrl}/api/products/${id}`, {
       next: { revalidate: CACHE_REVALIDATE_SECONDS },
     }).then((res) =>
       res.json()
-    ) || null;
-  } catch (error) {
+    );
+    if (response?.message) {
+      return null;
+    }
+    return response;
+  } catch () {
     return null;
   }
 }
