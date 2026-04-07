@@ -51,3 +51,7 @@ pnpm start
 - Total time: 1h50 :
 	- Setup / configuration: 0h15
 	- Feature development: 1h35
+
+## Pistes d’amélioration
+- Mettre en place des tests unitaires sur les hooks de tri/filtrage et des tests d’intégration sur les pages.
+- Ajouter un webhook pour invalider les données
