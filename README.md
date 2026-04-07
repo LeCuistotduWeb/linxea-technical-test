@@ -48,9 +48,10 @@ pnpm start
 	- Les interactions de la page listing (filtres, tri) sont gérées côté client avec React Query pour une UX fluide.
 
 ## Time spent
-- Total time: 1h50 :
+- Total time: 2h10 :
 	- Setup / configuration: 0h15
 	- Feature development: 1h35
+	- clean / refactor: 0h20
 
 ## Pistes d’amélioration
 - Mettre en place des tests unitaires sur les hooks de tri/filtrage et des tests d’intégration sur les pages.
