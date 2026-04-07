@@ -1,8 +1,8 @@
-import ProductApi from "@/features/product/product.api";
+import ProductService from "@/features/product/product.service";
 
 export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const product = await ProductApi.findProductById({ id });
+  const product = await ProductService.findProductById({ id });
 
   if (product) {
     return Response.json(product, {

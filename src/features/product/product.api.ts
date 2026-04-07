@@ -1,21 +1,30 @@
-import "server-only";
-import data from "@/datas/products.json";
-import { mapApiProductToProduct } from "./product.mapper";
-import { ApiProduct, findProductByIdParams, Product } from "./product.type";
+import { findProductByIdParams, Product } from "./product.type";
+import siteConfig from "@/constants/site";
+
+const CACHE_REVALIDATE_SECONDS = 3600; // 1 hour
 
 async function findProducts(): Promise<Product[]> {
-  const products: ApiProduct[] = data;
-  if (!products) { return []; }
-  return products.map((product) => mapApiProductToProduct(product));
+  try {
+    return await fetch(`${siteConfig.apiUrl}/api/products`, {
+      next: { revalidate: CACHE_REVALIDATE_SECONDS },
+    }).then((res) =>
+      res.json()
+    ) || [];
+  } catch (error) {
+    return [];
+  }
 };
 
 async function findProductById({ id }: findProductByIdParams): Promise<Product | null> {
-  const products: ApiProduct[] = data;
-  const product = products.find((product) => product.id === id);
-  if (!product) {
+  try {
+    return await fetch(`${siteConfig.apiUrl}/api/products/${id}`, {
+      next: { revalidate: CACHE_REVALIDATE_SECONDS },
+    }).then((res) =>
+      res.json()
+    ) || null;
+  } catch (error) {
     return null;
   }
-  return mapApiProductToProduct(product);
 }
 
 const ProductApi = {

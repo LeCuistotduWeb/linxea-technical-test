@@ -22,7 +22,7 @@ export function LayoutMain({ children }: { children: React.ReactNode }) {
 
 export function LayoutTitle({ children, className }: { children: React.ReactNode, className?: string }) {
   return (
-    <h1 className={cn("text-3xl font-bold tracking-tight text-title", className)}>
+    <h1 className={cn("text-2xl md:text-3xl font-bold tracking-tight text-title", className)}>
       {children}
     </h1>
   )

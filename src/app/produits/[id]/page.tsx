@@ -2,23 +2,19 @@ import { notFound } from "next/navigation";
 import { LayoutMain } from "@/components/layout";
 import ProductDetail from "@/components/product-detail";
 import Link from "next/link";
-import { Product } from "@/features/product/product.type";
-import siteConfig from "@/constants/site";
 import { Metadata } from "next";
+import ProductApi from "@/features/product/product.api";
 
 type ProductDetailPageProps = {
   params: Promise<{ id: string }>;
 };
 
-const CACHE_REVALIDATE_SECONDS = 3600; // 1 hour
-
 export async function generateMetadata(
   { params }: ProductDetailPageProps,
 ): Promise<Metadata> {
   const id = (await params).id
-  const post = await fetch(`${siteConfig.apiUrl}/api/products/${id}`).then((res) =>
-    res.json()
-  )
+  const post = await ProductApi.findProductById({ id });
+  if (!post) { return notFound(); }
   return {
     title: post.title,
     description: post.description,
@@ -26,14 +22,7 @@ export async function generateMetadata(
 }
 
 export async function generateStaticParams() {
-  const response = await fetch(`${siteConfig.apiUrl}/api/products`, {
-    next: { revalidate: CACHE_REVALIDATE_SECONDS },
-  });
-
-  if (!response.ok) {
-    return [];
-  }
-  const products = await response.json() as Product[];
+  const products = await ProductApi.findProducts() || [];
   return products.map((product) => ({
     id: product.id,
   }));
@@ -41,14 +30,8 @@ export async function generateStaticParams() {
 
 export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
   const { id } = await params;
-
-  const response = await fetch(`${siteConfig.apiUrl}/api/products/${id}`, {
-    next: { revalidate: CACHE_REVALIDATE_SECONDS },
-  });
-
-  const product = await response.json() as Product;
-
-  if (!product.id) { return notFound(); }
+  const product = await ProductApi.findProductById({ id });
+  if (!product) { return notFound(); }
 
   return (
     <LayoutMain>

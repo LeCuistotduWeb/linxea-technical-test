@@ -25,7 +25,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
 
         <div className="space-y-6">
           <header className="space-y-3">
-            <LayoutTitle className="text-2xl md:text-3xl">{product.title}</LayoutTitle>
+            <LayoutTitle>{product.title}</LayoutTitle>
             <LayoutDescription className="text-base leading-relaxed">
               {product.description}
             </LayoutDescription>
