@@ -13,6 +13,8 @@ export type findProductByIdParams = {
   id: string;
 };
 
+export type ProductsSortOrder = "updatedAt_desc" | "updatedAt_asc";
+
 export type ApiProduct = {
   id: string;
   slug: string;
