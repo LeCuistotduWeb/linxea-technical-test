@@ -10,7 +10,8 @@ async function findProducts(): Promise<Product[]> {
     }).then((res) =>
       res.json()
     ) || [];
-  } catch () {
+  } catch (error) {
+    console.error("Error fetching products:", error);
     return [];
   }
 };
@@ -26,7 +27,8 @@ async function findProductById({ id }: findProductByIdParams): Promise<Product |
       return null;
     }
     return response;
-  } catch () {
+  } catch (error) {
+    console.error(`Error fetching product with id ${id}:`, error);
     return null;
   }
 }
