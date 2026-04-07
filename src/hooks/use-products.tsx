@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Product, ProductsSortOrder } from "@/features/product/product.type";
+import siteConfig from "@/constants/site";
 
 export default function useProducts() {
   const [activeTags, setActiveTags] = useState<string[]>([]);
@@ -11,7 +12,7 @@ export default function useProducts() {
   const { data, error, isError, isPending } = useQuery({
     queryKey: ["products"],
     queryFn: async (): Promise<Product[]> => {
-      const response = await fetch("/api/products");
+      const response = await fetch(`${siteConfig.apiUrl}/api/products`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }

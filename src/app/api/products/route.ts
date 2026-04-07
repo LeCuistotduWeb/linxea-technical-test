@@ -1,8 +1,8 @@
 import ProductApi from "@/features/product/product.api";
 
-export async function GET(_: Request) {
+export async function GET() {
   const products = await ProductApi.findProducts();
-  return new Response(JSON.stringify(products), {
+  return Response.json(products, {
     headers: {
       "Content-Type": "application/json",
     },
